@@ -1,6 +1,8 @@
 # Municipalidad de Yau - Sistema de Trámites Priorizados
 
-![Gestión de Trámites Municipales](https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80)
+<p align="center">
+  <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Gestión de Trámites Municipales" width="600"/>
+</p>
 
 <!-- Imagen representativa de gestión y atención ciudadana en una municipalidad -->
 
