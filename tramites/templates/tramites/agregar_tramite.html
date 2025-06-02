@@ -1,0 +1,135 @@
+<!-- filepath: c:\Users\Alberto Arroyo\Downloads\entregable1_ML\municipalidad_yau\municipalidad_yau\tramites\templates\tramites\agregar_tramite.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Agregar Trámite</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(ellipse at top left, #e0e7ff 0%, #f0fdfa 100%);
+        }
+        .glass {
+            background: rgba(255,255,255,0.85);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 2px solid rgba(0,0,0,0.10);
+        }
+        .input-black {
+            border: 2px solid #000 !important;
+            background: #fff !important;
+            transition: box-shadow 0.2s;
+        }
+        .input-black:focus {
+            box-shadow: 0 0 0 2px #2563eb44;
+            border-color: #2563eb;
+        }
+        .fade-in {
+            animation: fadeIn 1.1s cubic-bezier(.4,0,.2,1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        /* Animación para el círculo del switch urgente */
+        .switch-circle {
+            transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+        }
+        input#switch-urgente:checked ~ .switch-track .switch-circle {
+            transform: translateX(112%);
+        }
+        input#switch-urgente:not(:checked) ~ .switch-track .switch-circle {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-2xl mx-auto glass p-12 border-blue-200 fade-in">
+        <div class="flex items-center justify-center mb-10">
+            <svg class="w-14 h-14 text-blue-700 mr-3 drop-shadow-lg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h1 class="text-5xl font-extrabold text-blue-900 tracking-tight drop-shadow-lg">Agregar Trámite</h1>
+        </div>
+        <form method="post" class="space-y-7">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == "urgente" %}
+                    <div>
+                        <label class="block text-gray-900 font-extrabold mb-2 text-lg flex items-center gap-2">
+                            <svg class="w-7 h-7 text-red-500 animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M12 4a8 8 0 100 16 8 8 0 000-16z" />
+                            </svg>
+                            <span>Marcar como <span class="text-red-600 underline decoration-wavy decoration-2 drop-shadow">URGENTE</span></span>
+                        </label>
+                        <div class="flex items-center my-2">
+                            <label class="relative inline-flex cursor-pointer items-center select-none">
+                                <input id="switch-urgente" name="urgente" type="checkbox" {% if field.value %}checked{% endif %} class="sr-only peer">
+                                <div class="switch-track w-16 h-9 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:bg-gradient-to-r peer-checked:from-red-500 peer-checked:to-yellow-400 transition">
+                                    <div class="switch-circle absolute left-0 top-0 h-9 w-9 rounded-full bg-white shadow-md flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-red-500 invisible peer-checked:visible transition" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M12 4a8 8 0 100 16 8 8 0 000-16z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </label>
+                            <span class="ml-4 text-gray-700 text-lg font-bold">¡Activar urgencia!</span>
+                        </div>
+                        {% if field.help_text %}
+                            <p class="text-xs text-gray-400">{{ field.help_text }}</p>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div>
+                        <label class="block text-gray-800 font-bold mb-2 text-lg">{{ field.label_tag }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <p class="text-xs text-gray-400">{{ field.help_text }}</p>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <button type="submit" class="w-full bg-gradient-to-r from-blue-900 to-blue-500 hover:from-blue-800 hover:to-blue-600 text-white font-bold py-4 px-6 rounded-xl shadow-xl transition-all duration-200 text-xl tracking-wide">
+                Guardar Trámite
+            </button>
+        </form>
+        <div class="flex justify-center mt-10">
+            <a href="{% url 'lista_tramites_priorizados' %}" class="inline-flex items-center text-blue-700 hover:text-blue-900 font-semibold transition text-lg">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+                Volver a la lista
+            </a>
+        </div>
+    </div>
+    <script>
+        // Añadir clase a los inputs generados por Django, excepto nuestro switch personalizado
+        document.querySelectorAll('input:not(#switch-urgente):not([type=checkbox]), select, textarea').forEach(el => {
+            el.classList.add('input-black', 'rounded-lg', 'px-4', 'py-3', 'w-full', 'text-lg', 'focus:outline-none');
+        });
+        // Movimiento animado del círculo del switch urgente
+        document.addEventListener('DOMContentLoaded', function() {
+            const switchInput = document.getElementById('switch-urgente');
+            const switchTrack = switchInput.closest('label').querySelector('.switch-track');
+            const switchCircle = switchTrack.querySelector('.switch-circle');
+            function updateSwitchCircle() {
+                if (switchInput.checked) {
+                    switchCircle.style.transform = 'translateX(112%)';
+                } else {
+                    switchCircle.style.transform = 'translateX(0)';
+                }
+            }
+            updateSwitchCircle();
+            switchInput.addEventListener('change', updateSwitchCircle);
+        });
+    </script>
+</body>
+</html>
