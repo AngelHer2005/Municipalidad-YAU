@@ -1,5 +1,9 @@
 # Municipalidad de Yau - Sistema de Trámites Priorizados
 
+![Gestión de Trámites Municipales](https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80)
+
+<!-- Imagen representativa de gestión y atención ciudadana en una municipalidad -->
+
 Sistema web para la gestión y priorización de trámites municipales, utilizando Machine Learning para asignar prioridades y facilitar la atención eficiente de solicitudes ciudadanas.
 
 ## 🚀 Características principales
@@ -91,5 +95,4 @@ Este proyecto es de uso académico y puede ser adaptado libremente para fines ed
 
 **Desarrollado por:**  
 Ángel Hernán Alberto Patricio Arroyo
-Municipalidad de Yau
 
